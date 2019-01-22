@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="40.05px" width="76.4px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 53.65, 32.95)">
+    <use height="37.85" transform="matrix(1.0, 0.0, 0.0, 1.0, -42.6, -31.75)" width="46.9" xlink:href="#shape0"/>
+    <use height="16.6" transform="matrix(1.0, 0.0, 0.0, 1.0, -48.25, -23.45)" width="16.3" xlink:href="#shape1"/>
+  </g>
+  <defs>
+    <g id="shape0" transform="matrix(1.0, 0.0, 0.0, 1.0, 42.6, 31.75)">
+      <path d="M-14.2 -18.25 Q-11.15 -17.9 -9.2 -19.65 -8.0 -20.65 -6.3 -23.6 -4.6 -26.55 -3.4 -27.65 -1.35 -29.45 1.8 -29.25" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+      <path d="M-10.6 -17.7 Q-9.9 -15.2 -11.8 -12.75 -13.75 -10.35 -17.2 -9.4 L-23.45 -9.6 Q-26.35 -10.75 -27.05 -13.25 -27.7 -15.8 -25.8 -18.2 -23.85 -20.65 -20.45 -21.55 L-14.15 -21.35 Q-11.25 -20.25 -10.6 -17.7" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M-10.6 -17.7 Q-9.9 -15.2 -11.8 -12.75 -13.75 -10.35 -17.2 -9.4 L-23.45 -9.6 Q-26.35 -10.75 -27.05 -13.25 -27.7 -15.8 -25.8 -18.2 -23.85 -20.65 -20.45 -21.55 L-14.15 -21.35 Q-11.25 -20.25 -10.6 -17.7 Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+      <path d="M-32.8 -10.55 Q-35.35 -11.45 -36.3 -13.1 -37.35 -14.7 -36.05 -16.2 -34.7 -17.75 -31.9 -18.2 L-26.45 -17.8 Q-23.85 -16.9 -22.9 -15.2 -22.0 -13.6 -23.4 -12.05 -24.65 -10.6 -27.3 -10.15 -30.15 -9.65 -32.8 -10.55" fill="#000000" fill-rule="evenodd" stroke="none"/>
+      <path d="M-32.8 -10.55 Q-35.35 -11.45 -36.3 -13.1 -37.35 -14.7 -36.05 -16.2 -34.7 -17.75 -31.9 -18.2 L-26.45 -17.8 Q-23.85 -16.9 -22.9 -15.2 -22.0 -13.6 -23.4 -12.05 -24.65 -10.6 -27.3 -10.15 -30.15 -9.65 -32.8 -10.55 Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+      <path d="M-7.1 -8.85 Q-9.2 -7.8 -11.75 -5.35 -14.05 -3.15 -15.75 -0.8" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+      <path d="M-14.85 -8.35 L-13.45 -9.05 -13.25 -9.25 -14.3 -8.85 -14.55 -8.75 -14.85 -8.35 Q-15.8 -7.2 -17.1 -7.1 L-20.4 -7.15 -20.2 -7.15 -17.55 -7.9 -18.65 -7.9 -18.45 -8.65 Q-17.55 -8.65 -14.25 -9.65 L-7.1 -9.65 M-17.55 -7.9 L-16.6 -8.15 -14.55 -8.75 M-14.85 -8.35 L-15.95 -7.9 -17.55 -7.9" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+      <path d="M-39.9 3.6 L-33.1 -4.6 Q-29.0 -9.7 -29.65 -12.6" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+      <path d="M-33.5 -9.2 L-35.3 -1.15 Q-36.9 3.7 -40.1 3.2" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.0"/>
+    </g>
+    <g id="shape1" transform="matrix(1.0, 0.0, 0.0, 1.0, 13.5, 40.55)">
+      <path d="M1.05 -33.65 Q4.2 -30.55 1.65 -26.85 L0.5 -25.5 Q-0.2 -25.0 -1.5 -24.85 L-4.2 -24.15 -6.5 -24.25 Q-8.6 -23.9 -10.55 -24.95 -13.2 -26.65 -13.5 -29.85 L-12.05 -31.1 Q-11.95 -33.7 -10.2 -35.5 -9.15 -36.75 -7.75 -37.15 L-7.35 -40.55 Q-0.9 -35.6 1.05 -33.65" fill="#000000" fill-rule="evenodd" stroke="none"/>
+    </g>
+  </defs>
+</svg>
