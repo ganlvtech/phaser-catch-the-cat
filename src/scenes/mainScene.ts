@@ -3,6 +3,7 @@ import data from "../data";
 import Cat from "../sprites/cat";
 import Block from "../sprites/block";
 import defaultSolver from "../solvers/defaultSolver";
+import ResetButton from "../sprites/resetButton";
 
 export default class MainScene extends Phaser.Scene {
     public readonly w: number;
@@ -121,6 +122,7 @@ export default class MainScene extends Phaser.Scene {
         this.createCat();
         this._statusBar = this.add.text(0, 0, '', {fontSize: '20px', fill: '#000'});
         this.statusBar.setPadding(16, 16, 16, 16);
+        this.createResetButton();
         this.reset();
     }
 
@@ -239,5 +241,13 @@ export default class MainScene extends Phaser.Scene {
         let cat = new Cat(this);
         this._cat = cat;
         this.add.existing(cat);
+    }
+
+    private createResetButton(): void {
+        let resetButton = new ResetButton(this);
+        this.add.existing(resetButton);
+        resetButton.on('pointerup', () => {
+            this.reset();
+        });
     }
 }

@@ -54,6 +54,7 @@ export default class Cat extends Phaser.GameObjects.Sprite {
         this.setIJ(Math.floor(this.scene.w / 2), Math.floor(this.scene.h / 2));
         this.direction = data.catDefaultDirection;
         this.stop();
+        this.setIJ(Math.floor(this.scene.w / 2), Math.floor(this.scene.h / 2));
     }
 
     setIJ(i: number, j: number): this {
