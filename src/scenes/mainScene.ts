@@ -151,13 +151,13 @@ export default class MainScene extends Phaser.Scene {
     }
 
     playerClick(i: number, j: number): boolean {
+        if (this.cat.anims.isPlaying) {
+            this.cat.anims.stop();
+        }
         if (this.state !== GameState.PLAYING) {
             this.setStatusText(_("游戏已经结束，重新开局"));
             this.reset();
             return false;
-        }
-        if (this.cat.anims.isPlaying) {
-            this.cat.anims.stop();
         }
         let block = this.getBlock(i, j);
         if (!block) {
