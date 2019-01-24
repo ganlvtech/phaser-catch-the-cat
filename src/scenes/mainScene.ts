@@ -1,9 +1,23 @@
-import * as Phaser from 'phaser';
+import * as Phaser from "phaser";
 import data from "../data";
 import Cat from "../sprites/cat";
 import Block from "../sprites/block";
-import defaultSolver from "../solvers/defaultSolver";
 import ResetButton from "../sprites/resetButton";
+import StatusBar from "../sprites/statusBar";
+import _ from "../i18n";
+
+declare type NeighbourData = {
+    i?: number,
+    j?: number,
+    x?: number,
+    y?: number,
+}
+
+enum GameState {
+    PLAYING = "playing",
+    WIN = "win",
+    LOSE = "lose",
+}
 
 export default class MainScene extends Phaser.Scene {
     public readonly w: number;
@@ -14,20 +28,21 @@ export default class MainScene extends Phaser.Scene {
 
     constructor(w: number, h: number, r: number) {
         super({
-            key: "MainScene"
+            key: "MainScene",
         });
         this.w = w;
         this.h = h;
         this.r = r;
         this.dx = this.r * 2;
         this.dy = this.r * Math.sqrt(3);
-        this.solver = defaultSolver;
     }
 
-    private _blocks: Block[][];
-
     get blocks(): Block[][] {
-        return this._blocks;
+        return this.data.get("blocks");
+    }
+
+    set blocks(value: Block[][]) {
+        this.data.set("blocks", value);
     }
 
     get blocksData(): boolean[][] {
@@ -41,47 +56,43 @@ export default class MainScene extends Phaser.Scene {
         return result;
     }
 
-    private _cat: Cat;
-
     get cat(): Cat {
-        return this._cat;
+        return this.data.get("cat");
     }
 
-    private _statusBar: Phaser.GameObjects.Text;
+    set cat(value: Cat) {
+        this.data.set("cat", value);
+    }
 
     get statusBar(): Phaser.GameObjects.Text {
-        return this._statusBar;
+        return this.data.get("status_bar");
     }
 
-    private _state: string;
-
-    get state(): string {
-        return this._state;
+    set statusBar(value: Phaser.GameObjects.Text) {
+        this.data.set("status_bar", value);
     }
 
-    set state(value: string) {
+    get state(): GameState {
+        return this.data.get("state");
+    }
+
+    set state(value: GameState) {
         switch (value) {
-            case 'playing':
-                this._state = value;
+            case GameState.PLAYING:
                 break;
-            case 'win':
-                this._state = value;
-                this.cat.cannotEscape();
+            case GameState.LOSE:
+                this.setStatusText(_("猫已经跑到地图边缘了，你输了"));
                 break;
-            case 'lose':
-                this._state = value;
-                this.cat.runEscape();
+            case GameState.WIN:
+                this.setStatusText(_("猫已经无路可走，你赢了"));
                 break;
+            default:
+                return;
         }
+        this.data.set("state", value);
     }
 
-    private _solver: (blocksIsWall: boolean[][], i: number, j: number) => number;
-
-    set solver(value: (blocksIsWall: boolean[][], i: number, j: number) => number) {
-        this._solver = value;
-    }
-
-    static getNeighbours(i: number, j: number): any[] {
+    static getNeighbours(i: number, j: number): NeighbourData[] {
         let left = {i: i - 1, j: j};
         let right = {i: i + 1, j: j};
         let top_left;
@@ -120,16 +131,15 @@ export default class MainScene extends Phaser.Scene {
         this.createAnimations();
         this.createBlocks();
         this.createCat();
-        this._statusBar = this.add.text(0, 0, '', {fontSize: '20px', fill: '#000'});
-        this.statusBar.setPadding(16, 16, 16, 16);
+        this.createStatusText();
         this.createResetButton();
         this.reset();
     }
 
-    getPosition(i: number, j: number): { x: number; y: number } {
+    getPosition(i: number, j: number): NeighbourData {
         return {
             x: this.r * 3 + ((j & 1) === 0 ? this.r : this.dx) + i * this.dx,
-            y: this.r * 3 + this.r + j * this.dy
+            y: this.r * 3 + this.r + j * this.dy,
         };
     }
 
@@ -141,51 +151,40 @@ export default class MainScene extends Phaser.Scene {
     }
 
     playerClick(i: number, j: number): boolean {
-        if (this.state !== 'playing') {
-            this.setStatusText('游戏已经结束，重新开局');
+        if (this.state !== GameState.PLAYING) {
+            this.setStatusText(_("游戏已经结束，重新开局"));
             this.reset();
             return false;
         }
         if (this.cat.anims.isPlaying) {
-            this.setStatusText('动画中暂时禁止点击');
-            return false;
+            this.cat.anims.stop();
         }
         let block = this.getBlock(i, j);
         if (!block) {
-            this.setStatusText(`代码错误，当前位置不存在`);
+            this.setStatusText(_("代码错误，当前位置不存在"));
             return false;
         }
         if (block.isWall) {
-            this.setStatusText(`当前位置已经是墙了，禁止点击`);
+            this.setStatusText(_("点击位置已经是墙了，禁止点击"));
             return false;
         }
         if (this.cat.i === i && this.cat.j === j) {
-            this.setStatusText(`当前位置是猫当前的位置，禁止点击`);
+            this.setStatusText(_("点击位置是猫当前位置，禁止点击"));
             return false;
         }
         block.isWall = true;
-        let catState = this.cat.state;
-        if (catState === 'lose') {
-            this.setStatusText(`猫已经跑到地图边缘了，你输了`);
-            this.state = catState;
-            return false;
-        } else if (catState === 'win') {
-            this.setStatusText(`猫已经无路可走，你赢了`);
-            this.state = catState;
+        if (this.cat.isCaught()) {
+            this.setStatusText(_("猫已经无路可走，你赢了"));
+            this.state = GameState.WIN;
             return false;
         }
-        this.setStatusText(`您点击了 (${i}, ${j})`);
-        let direction = this._solver(this.blocksData, this.cat.i, this.cat.j);
-        if (direction < 0) {
-            this.setStatusText('算法认输，你赢了！');
-            this.state = 'win';
-        } else {
-            let result = this.cat.stepDirection(direction);
-            if (!result) {
-                this.setStatusText('算法错误（撞墙或者出界），你赢了！');
-                this.state = 'win';
-            }
+        this.setStatusText(_("您点击了 ") + `(${i}, ${j})`);
+        let result = this.cat.step();
+        if (!result) {
+            this.setStatusText(_("猫认输，你赢了！"));
+            this.state = GameState.WIN;
         }
+        return true;
     }
 
     reset() {
@@ -195,8 +194,8 @@ export default class MainScene extends Phaser.Scene {
                 block.isWall = false;
             });
         });
-        this.state = 'playing';
-        this.setStatusText('点击小圆点，围住小猫');
+        this.state = GameState.PLAYING;
+        this.setStatusText(_("点击小圆点，围住小猫"));
     }
 
     private setStatusText(message: string) {
@@ -209,20 +208,19 @@ export default class MainScene extends Phaser.Scene {
             animation.textures.forEach(texture => {
                 frames.push({
                     key: texture,
-                    frame: 0
+                    frame: 0,
                 });
             });
             this.anims.create({
                 key: animation.name,
                 frames: frames,
                 frameRate: data.frameRate,
-                repeat: animation.repeat
+                repeat: animation.repeat,
             });
         });
     }
 
     private createBlocks(): void {
-        let blockSprites: Block[] = [];
         let blocks = [];
         for (let i = 0; i < this.w; i++) {
             blocks[i] = [];
@@ -230,23 +228,34 @@ export default class MainScene extends Phaser.Scene {
                 let block = new Block(this, i, j, this.r * 0.9);
                 blocks[i][j] = block;
                 this.add.existing(block);
-
-                block.addListener('player_click', this.playerClick.bind(this));
+                block.on("player_click", this.playerClick.bind(this));
             }
         }
-        this._blocks = blocks;
+        this.blocks = blocks;
     }
 
     private createCat(): void {
         let cat = new Cat(this);
-        this._cat = cat;
+        cat.on("escaped", () => {
+            this.state = GameState.LOSE;
+        });
+        cat.on("win", () => {
+            this.state = GameState.WIN;
+        });
+        this.cat = cat;
         this.add.existing(cat);
+    }
+
+    private createStatusText(): void {
+        let statusBar = new StatusBar(this);
+        this.statusBar = statusBar;
+        this.add.existing(statusBar);
     }
 
     private createResetButton(): void {
         let resetButton = new ResetButton(this);
         this.add.existing(resetButton);
-        resetButton.on('pointerup', () => {
+        resetButton.on("pointerup", () => {
             this.reset();
         });
     }

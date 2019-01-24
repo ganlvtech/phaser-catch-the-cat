@@ -37,4 +37,3 @@ export default class Block extends Phaser.GameObjects.Arc {
         }
     }
 }
-
