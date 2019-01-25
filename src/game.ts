@@ -11,7 +11,7 @@ export default class CatchTheCatGame extends Phaser.Game {
             type: Phaser.AUTO,
             parent: parent,
             backgroundColor: 0xeeeeee,
-            scene: scene
+            scene: scene,
         };
         super(config);
         this.mainScene = scene;

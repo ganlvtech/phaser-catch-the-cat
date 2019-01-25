@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import MainScene from "../scenes/mainScene";
 
 export default class Block extends Phaser.GameObjects.Arc {
@@ -17,8 +16,8 @@ export default class Block extends Phaser.GameObjects.Arc {
 
         let shape = new Phaser.Geom.Circle(this.r / 2, this.r / 2, this.r);
         this.setInteractive(shape, Phaser.Geom.Circle.Contains);
-        this.on('pointerdown', () => {
-            this.emit('player_click', this.i, this.j);
+        this.on("pointerdown", () => {
+            this.emit("player_click", this.i, this.j);
         });
     }
 

@@ -1,8 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const pathToPhaser = path.join(__dirname, '/node_modules/phaser/');
-const phaser = path.join(pathToPhaser, 'dist/phaser.js');
 
 module.exports = {
   mode: 'development',
@@ -28,14 +25,6 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline-loader'
-      },
-      {
-        test: /phaser\.js$/,
-        loader: 'expose-loader?Phaser'
       }
     ]
   },
@@ -43,13 +32,13 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: 'public'
+      },
+      {
+        from: 'node_modules/phaser/dist/phaser.min.js'
       }
     ])
   ],
   resolve: {
-    extensions: ['.ts', '.js'],
-    alias: {
-      phaser: phaser
-    }
+    extensions: ['.ts', '.js']
   }
 };

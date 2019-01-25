@@ -1,4 +1,3 @@
-import * as Phaser from "phaser";
 import MainScene from "../scenes/mainScene";
 import data from "../data";
 import defaultSolver from "../solvers/defaultSolver";

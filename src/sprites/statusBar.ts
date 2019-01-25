@@ -1,4 +1,3 @@
-import * as Phaser from "phaser";
 import MainScene from "../scenes/mainScene";
 
 export default class StatusBar extends Phaser.GameObjects.Text {

@@ -1,4 +1,3 @@
-import * as Phaser from 'phaser';
 import MainScene from "../scenes/mainScene";
 import _ from "../i18n";
 

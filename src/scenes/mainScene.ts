@@ -1,4 +1,3 @@
-import * as Phaser from "phaser";
 import data from "../data";
 import Cat from "../sprites/cat";
 import Block from "../sprites/block";
