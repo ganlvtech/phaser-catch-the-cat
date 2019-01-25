@@ -5,6 +5,7 @@ import Block from "../sprites/block";
 import ResetButton from "../sprites/resetButton";
 import StatusBar from "../sprites/statusBar";
 import _ from "../i18n";
+import nearestSolver from "../solvers/nearestSolver";
 
 declare type NeighbourData = {
     i?: number,
@@ -189,11 +190,8 @@ export default class MainScene extends Phaser.Scene {
 
     reset() {
         this.cat.reset();
-        this.blocks.forEach(blocks => {
-            blocks.forEach(block => {
-                block.isWall = false;
-            });
-        });
+        this.resetBlocks();
+        this.randomWall();
         this.state = GameState.PLAYING;
         this.setStatusText(_("点击小圆点，围住小猫"));
     }
@@ -242,6 +240,7 @@ export default class MainScene extends Phaser.Scene {
         cat.on("win", () => {
             this.state = GameState.WIN;
         });
+        cat.solver = nearestSolver;
         this.cat = cat;
         this.add.existing(cat);
     }
@@ -258,5 +257,23 @@ export default class MainScene extends Phaser.Scene {
         resetButton.on("pointerup", () => {
             this.reset();
         });
+    }
+
+    private resetBlocks() {
+        this.blocks.forEach(blocks => {
+            blocks.forEach(block => {
+                block.isWall = false;
+            });
+        });
+    }
+
+    private randomWall() {
+        for (let k = 0; k < 8; k++) {
+            let i = Math.floor(this.w * Math.random());
+            let j = Math.floor(this.h * Math.random());
+            if (i !== this.cat.i || j !== this.cat.j) {
+                this.getBlock(i, j).isWall = true;
+            }
+        }
     }
 }
