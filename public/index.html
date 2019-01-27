@@ -1,20 +1,33 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Catch The Cat</title>
     <style>
         * {
             padding: 0;
             margin: 0
         }
+
+        body {
+            background-color: #eeeeee;
+        }
+
+        #catch-the-cat {
+            width: 100%;
+            margin-top: 32px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <script src="phaser.min.js"></script>
-    <script src="bundle.js"></script>
+    <script src="catch-the-cat.js"></script>
+    <div id="catch-the-cat">
+        <div class="vertical-middle-helper"></div>
+    </div>
     <script>
-        window.game = new CatchTheCatGame(11, 11, 20);
+        window.game = new CatchTheCatGame(11, 11, 20, 'catch-the-cat');
     </script>
 </body>
 </html>
