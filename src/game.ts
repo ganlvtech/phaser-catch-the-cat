@@ -1,5 +1,10 @@
 import MainScene from "./scenes/mainScene";
 
+/*!
+ * Catch The Cat Game
+ *
+ * https://github.com/ganlvtech/phaser-catch-the-cat
+ */
 export default class CatchTheCatGame extends Phaser.Game {
     public readonly mainScene: MainScene;
 
