@@ -5,6 +5,7 @@ import ResetButton from "../sprites/resetButton";
 import StatusBar from "../sprites/statusBar";
 import _ from "../i18n";
 import nearestSolver from "../solvers/nearestSolver";
+import RawSVGFile from "../lib/RawSVGFile";
 
 declare type NeighbourData = {
     i?: number,
@@ -123,7 +124,7 @@ export default class MainScene extends Phaser.Scene {
     preload(): void {
         let textureScale = this.r / data.catStepLength;
         data.textures.forEach(path => {
-            this.load.svg(path, path, {scale: textureScale});
+            this.load.addFile(new RawSVGFile(this.load, path, data.texturesData[path], {scale: textureScale}));
         });
     }
 

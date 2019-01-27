@@ -3028,7 +3028,14 @@ declare namespace Phaser.Loader.FileTypesManager {
      * properties into the LoaderPlugin instance.
      * @param loader The LoaderPlugin to install the types into.
      */
-    function register(loader: Phaser.Loader.LoaderPlugin): void;
+    function install(loader: Phaser.Loader.LoaderPlugin): void;
+
+    /**
+     * Static method called directly by the File Types.
+     *
+     * The key is a reference to the function used to load the files via the Loader, i.e. `image`.
+     */
+    function register(key: string, factoryFunction: any): void;
 
     /**
      * Removed all associated file types.

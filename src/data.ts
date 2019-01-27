@@ -1,4 +1,37 @@
+import * as bottom_left_1 from "../assets/images/bottom_left/1.svg";
+import * as bottom_left_2 from "../assets/images/bottom_left/2.svg";
+import * as bottom_left_3 from "../assets/images/bottom_left/3.svg";
+import * as bottom_left_4 from "../assets/images/bottom_left/4.svg";
+import * as bottom_left_5 from "../assets/images/bottom_left/5.svg";
+import * as left_1 from "../assets/images/left/1.svg";
+import * as left_2 from "../assets/images/left/2.svg";
+import * as left_3 from "../assets/images/left/3.svg";
+import * as left_4 from "../assets/images/left/4.svg";
+import * as left_5 from "../assets/images/left/5.svg";
+import * as top_left_1 from "../assets/images/top_left/1.svg";
+import * as top_left_2 from "../assets/images/top_left/2.svg";
+import * as top_left_3 from "../assets/images/top_left/3.svg";
+import * as top_left_4 from "../assets/images/top_left/4.svg";
+import * as top_left_5 from "../assets/images/top_left/5.svg";
+
 export default {
+    texturesData: {
+        "images/bottom_left/1.svg": bottom_left_1,
+        "images/bottom_left/2.svg": bottom_left_2,
+        "images/bottom_left/3.svg": bottom_left_3,
+        "images/bottom_left/4.svg": bottom_left_4,
+        "images/bottom_left/5.svg": bottom_left_5,
+        "images/left/1.svg": left_1,
+        "images/left/2.svg": left_2,
+        "images/left/3.svg": left_3,
+        "images/left/4.svg": left_4,
+        "images/left/5.svg": left_5,
+        "images/top_left/1.svg": top_left_1,
+        "images/top_left/2.svg": top_left_2,
+        "images/top_left/3.svg": top_left_3,
+        "images/top_left/4.svg": top_left_4,
+        "images/top_left/5.svg": top_left_5,
+    },
     textures: [
         "images/bottom_left/1.svg",
         "images/bottom_left/2.svg",

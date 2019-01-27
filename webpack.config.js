@@ -1,6 +1,16 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+const babelLoader = {
+  loader: 'babel-loader',
+  options: {
+    cacheDirectory: true,
+    presets: [
+      '@babel/preset-env'
+    ]
+  }
+};
+
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
@@ -12,19 +22,29 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        loader: 'ts-loader',
-        exclude: '/node_modules/'
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          babelLoader,
+          {
+            loader: 'ts-loader'
+          }
+        ]
       },
       {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          babelLoader
+        ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'raw-loader'
           }
-        }
+        ]
       }
     ]
   },
@@ -32,6 +52,9 @@ module.exports = {
     new CopyWebpackPlugin([
       {
         from: 'public'
+      },
+      {
+        from: 'assets'
       },
       {
         from: 'node_modules/phaser/dist/phaser.min.js'
