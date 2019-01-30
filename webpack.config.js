@@ -54,9 +54,6 @@ module.exports = {
         from: 'public'
       },
       {
-        from: 'assets'
-      },
-      {
         from: 'node_modules/phaser/dist/phaser.min.js'
       }
     ])
