@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "10"
+cache: npm
+branches:
+  only:
+  - master
+  - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+script:
+  - npm run build
+  - zip dist.zip -r dist
+deploy:
+  - provider: releases
+    api-key: $GITHUB_TOKEN
+    file: ./dist.zip
+    skip-cleanup: true
+    on:
+      tags: true
