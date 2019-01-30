@@ -1,3 +1,7 @@
+/**
+ * Modified from "phaser/src/loader/XHRLoader.js"
+ */
+
 import FakeXMLHttpRequest from "./fake-xml-http-request";
 import RawFile from "./RawFile";
 

@@ -1,3 +1,3 @@
-export default function defaultSolver(blocksIsWall: boolean[][], i: number, j: number): number {
+export default function idiotSolver(blocksIsWall: boolean[][], i: number, j: number): number {
     return -1;
 }

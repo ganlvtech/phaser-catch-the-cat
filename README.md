@@ -66,6 +66,16 @@ window.game.scene.scenes[0].cat.solver = yourSolver;
  5 4
 ```
 
+例如
+
+```js
+window.game.scene.scenes[0].cat.solver = function (blocksIsWall, i, j) {
+    return 0;
+};
+```
+
+即：一直向左走，直到撞墙。
+
 ## 说明
 
 * 游戏的思路和小猫的图片来源于 [www.gamedesign.jp](https://www.gamedesign.jp/flash/chatnoir/chatnoir.html)，原来的游戏名叫 Chat Noir，我只是尝试用 javascript 重写一遍。
