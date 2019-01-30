@@ -43,7 +43,7 @@
 参考 `src/solvers/` 中提供的例子编写算法，并使用下列代码替换。
 
 ```js
-window.game.scene.scenes[0].cat.solver = yourSolver;
+window.game.solver = yourSolver;
 ```
 
 这个 solver 的返回值即为猫要往哪个方向走一步，如果撞墙则算玩家获胜
@@ -69,7 +69,7 @@ window.game.scene.scenes[0].cat.solver = yourSolver;
 例如
 
 ```js
-window.game.scene.scenes[0].cat.solver = function (blocksIsWall, i, j) {
+window.game.solver = function (blocksIsWall, i, j) {
     return 0;
 };
 ```
