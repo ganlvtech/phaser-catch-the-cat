@@ -123,9 +123,9 @@ export default class MainScene extends Phaser.Scene {
 
     preload(): void {
         let textureScale = this.r / data.catStepLength;
-        data.textures.forEach(path => {
-            this.load.addFile(new RawSVGFile(this.load, path, data.texturesData[path], {scale: textureScale}));
-        });
+        for (let key in data.textures) {
+            this.load.addFile(new RawSVGFile(this.load, key, data.textures[key], {scale: textureScale}));
+        }
     }
 
     create(): void {
