@@ -22,7 +22,17 @@ export default class CatchTheCatGame extends Phaser.Game {
         this.mainScene = scene;
     }
 
+    private _solver;
+
+    get solver() {
+        return this._solver;
+    }
+
     set solver(value) {
-        this.mainScene.cat.solver = value;
+        this._solver = value;
+        try {
+            this.mainScene.cat.solver = value;
+        } finally {
+        }
     }
 }

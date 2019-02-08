@@ -1,4 +1,5 @@
 import data from "../data";
+import CatchTheCatGame from "../game";
 import Cat from "../sprites/cat";
 import Block from "../sprites/block";
 import ResetButton from "../sprites/resetButton";
@@ -26,6 +27,7 @@ export default class MainScene extends Phaser.Scene {
     public readonly r: number;
     public readonly dx: number;
     public readonly dy: number;
+    public game: CatchTheCatGame;
 
     constructor(w: number, h: number, r: number) {
         super({
@@ -135,6 +137,9 @@ export default class MainScene extends Phaser.Scene {
         this.createStatusText();
         this.createResetButton();
         this.reset();
+        if (this.game.solver) {
+            this.cat.solver = this.game.solver;
+        }
     }
 
     getPosition(i: number, j: number): NeighbourData {
