@@ -1,5 +1,8 @@
 # 捉住小猫
 
+[开始游戏](https://ganlvtech.github.io/phaser-catch-the-cat/)
+[![Build Status](https://www.travis-ci.org/ganlvtech/phaser-catch-the-cat.svg?branch=master)](https://www.travis-ci.org/ganlvtech/phaser-catch-the-cat)
+
 ## 游戏玩法
 
 * 点击小圆点，围住小猫。
