@@ -4,6 +4,7 @@ import Cat from "../sprites/cat";
 import Block from "../sprites/block";
 import ResetButton from "../sprites/resetButton";
 import StatusBar from "../sprites/statusBar";
+import CreditText from "../sprites/creditText";
 import _ from "../i18n";
 import nearestSolver from "../solvers/nearestSolver";
 import RawSVGFile from "../lib/RawSVGFile";
@@ -75,6 +76,14 @@ export default class MainScene extends Phaser.Scene {
         this.data.set("status_bar", value);
     }
 
+    get creditText(): CreditText {
+        return this.data.get("credit_text");
+    }
+
+    set creditText(value: CreditText) {
+        this.data.set("credit_text", value);
+    }
+
     get state(): GameState {
         return this.data.get("state");
     }
@@ -136,6 +145,7 @@ export default class MainScene extends Phaser.Scene {
         this.createCat();
         this.createStatusText();
         this.createResetButton();
+        this.createCreditText();
         this.reset();
         if (this.game.solver) {
             this.cat.solver = this.game.solver;
@@ -262,6 +272,12 @@ export default class MainScene extends Phaser.Scene {
         resetButton.on("pointerup", () => {
             this.reset();
         });
+    }
+
+    private createCreditText(): void {
+        let creditText = new CreditText(this);
+        this.creditText = creditText;
+        this.add.existing(creditText);
     }
 
     private resetBlocks() {

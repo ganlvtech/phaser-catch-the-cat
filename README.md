@@ -28,18 +28,34 @@
 ```html
 <div id="catch-the-cat"></div>
 <script>
-    window.game = new CatchTheCatGame(11, 11, 20, 'catch-the-cat');
+    window.game = new CatchTheCatGame({
+        w: 11,
+        h: 11,
+        r: 20,
+        backgroundColor: 0xeeeeee,
+        parent: 'catch-the-cat',
+        statusBarAlign: 'center',
+        credit: 'github.com/ganlvtech'
+    });
 </script>
 ```
 
 参数列表：
 
-| 参数   | 值              | 说明                    |
-| :----: | :-------------: | :---------------------- |
-| w      | `11`            | 横向格子数              |
-| h      | `11`            | 竖向格子数              |
-| r      | `20`            | 圆半径像素              |
-| parent | `catch-the-cat` | 父元素的 id 或 DOM 对象 |
+| 参数  | 值    | 说明       |
+| :---: | :---: | :--------- |
+| w     | `11`  | 横向格子数 |
+| h     | `11`  | 竖向格子数 |
+| r     | `20`  | 圆半径像素 |
+
+非必选参数：
+
+| 参数            | 值                     | 说明                                |
+| :-------------: | :--------------------- | :---------------------------------- |
+| backgroundColor | `0xeeeeee`             | 背景颜色                            |
+| parent          | `catch-the-cat`        | 父元素的 id 或 DOM 对象             |
+| statusBarAlign  | `center`               | 状态栏左对齐 `left` 或居中 `center` |
+| credit          | `github.com/ganlvtech` | 右下角的备注信息                    |
 
 ## 自己编写算法
 
