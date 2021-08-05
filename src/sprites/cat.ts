@@ -57,6 +57,11 @@ export default class Cat extends Phaser.GameObjects.Sprite {
         this.resetIJ();
     }
 
+    undo(i, j) {
+        this.anims.stop();
+        this.setIJ(i, j)
+    }
+
     step(): boolean {
         let direction = this.solver.call(this, this.scene.blocksData, this.i, this.j);
         if (direction < 0 || direction > 6) {
