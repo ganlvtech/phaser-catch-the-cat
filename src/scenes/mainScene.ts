@@ -3,6 +3,7 @@ import CatchTheCatGame from "../game";
 import Cat from "../sprites/cat";
 import Block from "../sprites/block";
 import ResetButton from "../sprites/resetButton";
+import UndoButton from "../sprites/undoButton";
 import StatusBar from "../sprites/statusBar";
 import CreditText from "../sprites/creditText";
 import _ from "../i18n";
@@ -14,6 +15,11 @@ declare type NeighbourData = {
     j?: number,
     x?: number,
     y?: number,
+}
+
+declare type RecordCoord = {
+    cat: {i:number, j:number}[],
+    wall: {i:number, j:number}[],
 }
 
 enum GameState {
@@ -29,6 +35,7 @@ export default class MainScene extends Phaser.Scene {
     public readonly dx: number;
     public readonly dy: number;
     public game: CatchTheCatGame;
+    private recordCoord: RecordCoord;
 
     constructor(w: number, h: number, r: number) {
         super({
@@ -145,6 +152,7 @@ export default class MainScene extends Phaser.Scene {
         this.createCat();
         this.createStatusText();
         this.createResetButton();
+        this.createUndoButton();
         this.createCreditText();
         this.reset();
         if (this.game.solver) {
@@ -194,6 +202,10 @@ export default class MainScene extends Phaser.Scene {
             this.state = GameState.WIN;
             return false;
         }
+
+        this.recordCoord.cat.push({i: this.cat.i, j:this.cat.j});
+        this.recordCoord.wall.push({i, j});
+
         this.setStatusText(_("您点击了 ") + `(${i}, ${j})`);
         let result = this.cat.step();
         if (!result) {
@@ -207,10 +219,31 @@ export default class MainScene extends Phaser.Scene {
         this.cat.reset();
         this.resetBlocks();
         this.randomWall();
+
+        this.recordCoord = {
+            cat: [],
+            wall: []
+        };
         this.state = GameState.PLAYING;
         this.setStatusText(_("点击小圆点，围住小猫"));
     }
 
+    undo() {
+        if (this.recordCoord.cat.length) {
+            if (this.state !== GameState.PLAYING) {
+                this.setStatusText(_("游戏已经结束，重新开局"));
+                this.reset();
+            } else {
+                const catCoord = this.recordCoord.cat.pop();
+                const {i, j} = this.recordCoord.wall.pop();
+
+                this.cat.undo(catCoord.i, catCoord.j);
+                this.getBlock(i, j).isWall = false;
+            }
+        } else {
+            this.setStatusText(_("无路可退！！！"));
+        }
+    }
     private setStatusText(message: string) {
         this.statusBar.setText(message);
     }
@@ -271,6 +304,14 @@ export default class MainScene extends Phaser.Scene {
         this.add.existing(resetButton);
         resetButton.on("pointerup", () => {
             this.reset();
+        });
+    }
+
+    private createUndoButton(): void {
+        let undoButton = new UndoButton(this);
+        this.add.existing(undoButton);
+        undoButton.on("pointerup", () => {
+            this.undo();
         });
     }
 
