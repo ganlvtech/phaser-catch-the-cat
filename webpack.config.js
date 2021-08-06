@@ -1,23 +1,22 @@
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const babelLoader = {
-  loader: 'babel-loader',
+  loader: "babel-loader",
   options: {
     cacheDirectory: true,
-    presets: [
-      '@babel/preset-env'
-    ]
-  }
+    presets: ["@babel/preset-env"],
+  },
 };
 
 module.exports = {
-  mode: 'development',
-  devtool: 'source-map',
-  entry: './src/index.ts',
+  mode: "development",
+  devtool: "source-map",
+  entry: "./src/index.ts",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'catch-the-cat.js'
+    path: path.resolve(__dirname, "dist"),
+    filename: "catch-the-cat.[contenthash].js",
   },
   module: {
     rules: [
@@ -27,38 +26,37 @@ module.exports = {
         use: [
           babelLoader,
           {
-            loader: 'ts-loader'
-          }
-        ]
+            loader: "ts-loader",
+          },
+        ],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          babelLoader
-        ]
+        use: [babelLoader],
       },
       {
         test: /\.svg$/,
         use: [
           {
-            loader: 'raw-loader'
-          }
-        ]
-      }
-    ]
+            loader: "raw-loader",
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: 'public'
+        from: "node_modules/phaser/dist/phaser.min.js",
       },
-      {
-        from: 'node_modules/phaser/dist/phaser.min.js'
-      }
-    ])
+    ]),
+    new HtmlWebpackPlugin({
+      title: "Catch The Cat",
+      template: "public/index.html",
+    }),
   ],
   resolve: {
-    extensions: ['.ts', '.js']
-  }
+    extensions: [".ts", ".js"],
+  },
 };

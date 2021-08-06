@@ -19,6 +19,7 @@
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^4.6.0",
     "expose-loader": "^0.7.5",
+    "html-webpack-plugin": "^4.5.2",
     "raw-loader": "^1.0.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3",
