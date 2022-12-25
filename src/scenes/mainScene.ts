@@ -32,18 +32,20 @@ export default class MainScene extends Phaser.Scene {
     public readonly w: number;
     public readonly h: number;
     public readonly r: number;
+    public readonly initialWallCount: number;
     public readonly dx: number;
     public readonly dy: number;
     public game: CatchTheCatGame;
     private recordCoord: RecordCoord;
 
-    constructor(w: number, h: number, r: number) {
+    constructor(w: number, h: number, r: number, initialWallCount: number) {
         super({
             key: "MainScene",
         });
         this.w = w;
         this.h = h;
         this.r = r;
+        this.initialWallCount = initialWallCount;
         this.dx = this.r * 2;
         this.dy = this.r * Math.sqrt(3);
     }
@@ -330,12 +332,27 @@ export default class MainScene extends Phaser.Scene {
     }
 
     private randomWall() {
-        for (let k = 0; k < 8; k++) {
-            let i = Math.floor(this.w * Math.random());
-            let j = Math.floor(this.h * Math.random());
-            if (i !== this.cat.i || j !== this.cat.j) {
-                this.getBlock(i, j).isWall = true;
+        const array = [];
+        for (let j = 0; j < this.h; j++) {
+            for (let i = 0; i < this.w; i++) {
+                if (i !== this.cat.i || j !== this.cat.j) {
+                    array.push(j * this.w + i);
+                }
             }
+        }
+        for (let i = 0; i < array.length; i++) {
+            if (i >= this.initialWallCount) {
+                break;
+            }
+            // Shuffle array
+            const j = i + Math.floor(Math.random() * (array.length - i));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            // Set wall
+            let wallI = array[i] % this.w;
+            let wallJ = Math.floor(array[i] / this.w);
+            this.getBlock(wallI, wallJ).isWall = true;
         }
     }
 }
