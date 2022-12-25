@@ -14,6 +14,10 @@ declare type CatchTheCatGameConfig = {
      */
     r: number,
     /**
+     * initial wall count
+     */
+    initialWallCount: number,
+    /**
      * The background color of the game canvas. The default is black.
      */
     backgroundColor?: string | number;
@@ -46,13 +50,16 @@ export default class CatchTheCatGame extends Phaser.Game {
         if (!config.backgroundColor) {
             config.backgroundColor = 0xeeeeee;
         }
+        if (!config.initialWallCount) {
+            config.initialWallCount = 8;
+        }
         let w = config.w;
         let h = config.h;
         let r = config.r * window.devicePixelRatio;
         let canvasZoom = 1 / window.devicePixelRatio;
         let canvasWidth = Math.floor((6.5 + 2 * w) * r);
         let canvasHeight = Math.floor((6 + Math.sqrt(3) * h) * r);
-        let scene = new MainScene(w, h, r);
+        let scene = new MainScene(w, h, r, config.initialWallCount);
         const gameConfig: GameConfig = {
             width: canvasWidth,
             height: canvasHeight,
