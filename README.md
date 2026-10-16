@@ -103,3 +103,7 @@ window.game.solver = function (blocksIsWall, i, j) {
 ## License
 
 MIT License
+
+## Play online
+
+Also playable on [WASM Arcade](https://www.wasmarcade.online/arcade/catch-the-cat/) — free, no download.
